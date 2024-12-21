@@ -136,7 +136,6 @@ export default function Portfolio() {
           )}
         </motion.div>
       </div>
-      <Changelog />
       <AnimatePresence>
         {showWorkExamples && (
           <WorkExamples onClose={() => setShowWorkExamples(false)} />

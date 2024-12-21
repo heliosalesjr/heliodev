@@ -19,12 +19,14 @@ const changelogData: ChangelogItem[] = [
 
 const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: false, margin: "-50px 0px" })
   const controls = useAnimation()
 
   useEffect(() => {
     if (isInView) {
       controls.start("visible")
+    } else {
+      controls.start("hidden")
     }
   }, [isInView, controls])
 
@@ -34,10 +36,15 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
       initial="hidden"
       animate={controls}
       variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.1 } },
+        hidden: { opacity: 0.5, y: 20, scale: 0.95 },
+        visible: { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1, 
+          transition: { duration: 0.5, delay: index * 0.1 } 
+        },
       }}
-      className="flex items-center mb-8"
+      className="flex items-center mb-12"
     >
       <div className="w-1/3 pr-4 text-right">
         <motion.h3
@@ -45,27 +52,37 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
             hidden: { opacity: 0.5, scale: 0.9 },
             visible: { opacity: 1, scale: 1 },
           }}
-          className="text-lg font-semibold text-purple-600 dark:text-purple-400"
+          className="text-xl font-semibold text-purple-600 dark:text-purple-400"
         >
           {item.period}
         </motion.h3>
       </div>
-      <div className="w-1/12 flex justify-center">
+      <div className="w-1/6 flex justify-center relative">
         <motion.div
           variants={{
             hidden: { opacity: 0, scale: 0.5 },
             visible: { opacity: 1, scale: 1 },
           }}
-          className="w-4 h-4 rounded-full bg-green-500"
+          className="w-4 h-4 rounded-full bg-green-500 z-10"
         />
+        {index < changelogData.length - 1 && (
+          <motion.div
+            variants={{
+              hidden: { height: 0 },
+              visible: { height: '100%', transition: { duration: 0.5 } },
+            }}
+            className="absolute top-4 left-1/2 transform -translate-x-1/2 w-0.5 bg-green-500"
+            style={{ height: 'calc(100% + 3rem)' }}
+          />
+        )}
       </div>
-      <div className="w-7/12 pl-4">
+      <div className="w-1/2 pl-4">
         <motion.p
           variants={{
             hidden: { opacity: 0.5, scale: 0.9 },
             visible: { opacity: 1, scale: 1 },
           }}
-          className="text-slate-700 dark:text-slate-300"
+          className="text-lg text-slate-700 dark:text-slate-300"
         >
           {item.description}
         </motion.p>
@@ -75,29 +92,10 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
 }
 
 const Changelog = () => {
-  const lineRef = useRef(null)
-  const isInView = useInView(lineRef, { once: false, margin: "-100px" })
-  const controls = useAnimation()
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start({ height: "100%", transition: { duration: 1.5 } })
-    } else {
-      controls.start({ height: "0%", transition: { duration: 0 } })
-    }
-  }, [isInView, controls])
-
   return (
-    <div className="py-16 relative">
-      <h2 className="text-3xl font-bold text-center mb-12 text-purple-600 dark:text-purple-400">My Journey</h2>
-      <div className="max-w-4xl mx-auto relative">
-        <motion.div
-          ref={lineRef}
-          initial={{ height: "0%" }}
-          animate={controls}
-          className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-green-500"
-          style={{ top: "24px", bottom: "24px" }}
-        />
+    <div className="py-16 px-4 max-w-3xl mx-auto">
+      <h2 className="text-4xl font-bold text-center mb-12 text-purple-600 dark:text-purple-400">My Journey</h2>
+      <div className="relative">
         {changelogData.map((item, index) => (
           <ChangelogItem key={index} item={item} index={index} />
         ))}
@@ -107,4 +105,6 @@ const Changelog = () => {
 }
 
 export default Changelog
+
+
 

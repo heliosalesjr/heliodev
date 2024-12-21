@@ -4,16 +4,17 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Portfolio from '@/components/Portfolio'
+import Changelog from '@/components/Changelog'
 import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 
 export default function Page() {
-  const [showPortfolio, setShowPortfolio] = useState(false)
+  const [showContent, setShowContent] = useState(false)
   const controls = useAnimation()
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
-  const portfolioRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -27,9 +28,9 @@ export default function Page() {
   }, [controls])
 
   const handleHelloClick = () => {
-    setShowPortfolio(true)
+    setShowContent(true)
     setTimeout(() => {
-      portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })
+      contentRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, 100)
   }
 
@@ -97,20 +98,23 @@ export default function Page() {
           </div>
         </motion.div>
       </div>
-      {showPortfolio && (
+      {showContent && (
         <motion.div
-          ref={portfolioRef}
+          ref={contentRef}
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full min-h-screen flex items-center justify-center p-4"
+          className="w-full"
         >
-          <div className="w-full max-w-6xl">
+          <div className="w-full max-w-6xl mx-auto p-4">
             <Portfolio />
           </div>
+          <Changelog />
         </motion.div>
       )}
     </div>
   )
 }
+
+
 
