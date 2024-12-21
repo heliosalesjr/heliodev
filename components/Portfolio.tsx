@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import WorkExamples from './WorkExamples'
 import ContactForm from './ContactForm'
+import Changelog from './Changelog'
 
 const menuItems = [
   { id: 'about', title: 'About Me', icon: FaUser },
@@ -120,9 +121,7 @@ export default function Portfolio() {
               transition={{ delay: 0.5 }}
               className="mt-8"
             >
-              <Button onClick={() => setShowWorkExamples(true)}>
-                More
-              </Button>
+              <Button onClick={() => setShowWorkExamples(true)}>More</Button>
             </motion.div>
           )}
           {activeItem === 'contact' && (
@@ -137,6 +136,7 @@ export default function Portfolio() {
           )}
         </motion.div>
       </div>
+      <Changelog />
       <AnimatePresence>
         {showWorkExamples && (
           <WorkExamples onClose={() => setShowWorkExamples(false)} />
@@ -148,4 +148,5 @@ export default function Portfolio() {
     </div>
   )
 }
+
 
