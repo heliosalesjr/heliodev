@@ -40,8 +40,8 @@ export default function Portfolio() {
   const [showContactForm, setShowContactForm] = useState(false)
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-800 rounded-lg shadow-xl overflow-hidden">
-      <div className="flex flex-col md:flex-row h-full">
+    <div className="flex flex-col bg-white dark:bg-slate-800 rounded-lg shadow-xl overflow-hidden">
+      <div className="flex flex-col md:flex-row">
         <motion.nav
           className="w-full md:w-64 bg-slate-100 dark:bg-slate-700 p-6"
           initial={{ x: -100, opacity: 0 }}

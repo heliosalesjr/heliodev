@@ -77,12 +77,16 @@ export default function Page() {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full max-w-6xl mx-auto p-8"
+          className="w-full min-h-screen flex items-center justify-center p-4"
         >
-          <Portfolio />
+          <div className="w-full max-w-6xl">
+            <Portfolio />
+          </div>
         </motion.div>
       )}
     </div>
   )
 }
+
+
 
