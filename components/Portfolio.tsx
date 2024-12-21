@@ -39,6 +39,16 @@ export default function Portfolio() {
   const [showWorkExamples, setShowWorkExamples] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
 
+  const handleSetActiveItem = (item: string) => {
+    setActiveItem(item)
+    if (item !== 'contact') {
+      setShowContactForm(false)
+    }
+    if (item !== 'work') {
+      setShowWorkExamples(false)
+    }
+  }
+
   return (
     <div className="flex flex-col bg-white dark:bg-slate-800 rounded-lg shadow-xl overflow-hidden">
       <div className="flex flex-col md:flex-row">
@@ -56,7 +66,7 @@ export default function Portfolio() {
                 whileTap={{ scale: 0.95 }}
               >
                 <button
-                  onClick={() => setActiveItem(item.id)}
+                  onClick={() => handleSetActiveItem(item.id)}
                   className={`w-full text-left py-2 px-4 rounded transition-colors flex items-center ${
                     activeItem === item.id
                       ? 'bg-purple-600 text-white'
@@ -110,7 +120,9 @@ export default function Portfolio() {
               transition={{ delay: 0.5 }}
               className="mt-8"
             >
-              <Button onClick={() => setShowWorkExamples(true)}>More</Button>
+              <Button onClick={() => setShowWorkExamples(true)}>
+                More
+              </Button>
             </motion.div>
           )}
           {activeItem === 'contact' && (

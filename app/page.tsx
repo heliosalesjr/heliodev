@@ -10,8 +10,13 @@ import { Moon, Sun } from 'lucide-react'
 export default function Page() {
   const [showPortfolio, setShowPortfolio] = useState(false)
   const controls = useAnimation()
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const portfolioRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const loopAnimation = async () => {
@@ -35,7 +40,11 @@ export default function Page() {
         className="fixed top-4 right-4 z-50"
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
-        {theme === 'dark' ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+        {mounted && (theme === 'dark' ? (
+          <Sun className="h-[1.2rem] w-[1.2rem]" />
+        ) : (
+          <Moon className="h-[1.2rem] w-[1.2rem]" />
+        ))}
       </Button>
       <div className="min-h-screen flex flex-col items-center justify-center">
         <motion.div
@@ -87,6 +96,4 @@ export default function Page() {
     </div>
   )
 }
-
-
 
