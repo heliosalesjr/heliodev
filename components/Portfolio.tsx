@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import WorkExamples from './WorkExamples'
 import ContactForm from './ContactForm'
-import Changelog from './Changelog'
 
 const menuItems = [
   { id: 'about', title: 'About Me', icon: FaUser },
@@ -51,15 +50,15 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="flex flex-col bg-white dark:bg-slate-800 rounded-lg shadow-xl overflow-hidden">
+    <div className="flex flex-col bg-gradient-to-br from-violet-900 to-indigo-950 rounded-3xl shadow-2xl overflow-hidden border-4 border-cyan-400">
       <div className="flex flex-col md:flex-row">
         <motion.nav
-          className="w-full md:w-64 bg-slate-100 dark:bg-slate-700 p-6"
+          className="w-full md:w-72 bg-gradient-to-b from-fuchsia-900 to-violet-900 p-8"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <ul className="flex md:flex-col space-x-4 md:space-x-0 md:space-y-4 overflow-x-auto md:overflow-x-visible">
+          <ul className="flex md:flex-col space-x-4 md:space-x-0 md:space-y-6 overflow-x-auto md:overflow-x-visible">
             {menuItems.map((item) => (
               <motion.li
                 key={item.id}
@@ -68,13 +67,13 @@ export default function Portfolio() {
               >
                 <button
                   onClick={() => handleSetActiveItem(item.id)}
-                  className={`w-full text-left py-2 px-4 rounded transition-colors flex items-center ${
+                  className={`w-full text-left py-4 px-6 rounded-xl transition-all flex items-center text-xl ${
                     activeItem === item.id
-                      ? 'bg-purple-600 text-white'
-                      : 'text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600'
+                      ? 'bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-white shadow-lg'
+                      : 'text-white/70 hover:text-white hover:bg-white/10'
                   }`}
                 >
-                  <item.icon className="mr-2" />
+                  <item.icon className="mr-3 text-2xl" />
                   {item.title}
                 </button>
               </motion.li>
@@ -82,34 +81,35 @@ export default function Portfolio() {
           </ul>
         </motion.nav>
         <motion.div
-          className="flex-1 p-8 bg-white dark:bg-slate-800 overflow-y-auto"
+          className="flex-1 p-8 bg-gradient-to-br from-violet-900 to-indigo-950 overflow-y-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
           <motion.h2
-            className="text-3xl font-bold mb-6 text-purple-600 dark:text-purple-400"
+            className="text-6xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500"
             key={activeItem}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3 }}
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             {menuItems.find((item) => item.id === activeItem)?.title}
           </motion.h2>
           <motion.div
-            className="grid gap-6 md:grid-cols-2"
+            className="grid gap-8 md:grid-cols-2"
             key={`${activeItem}-content`}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
             {content[activeItem].map((item, index) => (
-              <Card key={index}>
+              <Card key={index} className="bg-white/10 border-cyan-400/30 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>{item.title}</CardTitle>
+                  <CardTitle className="text-2xl text-white">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription>{item.description}</CardDescription>
+                  <CardDescription className="text-lg text-white/70">{item.description}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -119,9 +119,14 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-8"
+              className="mt-12"
             >
-              <Button onClick={() => setShowWorkExamples(true)}>More</Button>
+              <Button
+                onClick={() => setShowWorkExamples(true)}
+                className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+              >
+                More
+              </Button>
             </motion.div>
           )}
           {activeItem === 'contact' && (
@@ -129,9 +134,14 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-8"
+              className="mt-12"
             >
-              <Button onClick={() => setShowContactForm(true)}>Message Me</Button>
+              <Button
+                onClick={() => setShowContactForm(true)}
+                className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+              >
+                Message Me
+              </Button>
             </motion.div>
           )}
         </motion.div>
@@ -147,5 +157,4 @@ export default function Portfolio() {
     </div>
   )
 }
-
 

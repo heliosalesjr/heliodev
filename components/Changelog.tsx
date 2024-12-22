@@ -1,3 +1,7 @@
+
+
+
+
 'use client'
 
 import { useEffect, useRef } from 'react'
@@ -19,7 +23,7 @@ const changelogData: ChangelogItem[] = [
 
 const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, margin: "-50px 0px" })
+  const isInView = useInView(ref, { once: false, margin: "-100px" })
   const controls = useAnimation()
 
   useEffect(() => {
@@ -36,56 +40,55 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
       initial="hidden"
       animate={controls}
       variants={{
-        hidden: { opacity: 0.5, y: 20, scale: 0.95 },
+        hidden: { opacity: 0.3 },
         visible: { 
-          opacity: 1, 
-          y: 0, 
-          scale: 1, 
-          transition: { duration: 0.5, delay: index * 0.1 } 
+          opacity: 1,
+          transition: { duration: 0.6, ease: "easeOut" } 
         },
       }}
-      className="flex items-center mb-12"
+      className="mb-32"
     >
-      <div className="w-1/3 pr-4 text-right">
-        <motion.h3
-          variants={{
-            hidden: { opacity: 0.5, scale: 0.9 },
-            visible: { opacity: 1, scale: 1 },
-          }}
-          className="text-xl font-semibold text-purple-600 dark:text-purple-400"
-        >
-          {item.period}
-        </motion.h3>
-      </div>
-      <div className="w-1/6 flex justify-center relative">
+      <div className="flex items-start gap-8">
         <motion.div
           variants={{
-            hidden: { opacity: 0, scale: 0.5 },
-            visible: { opacity: 1, scale: 1 },
+            hidden: { scale: 0.8, opacity: 0 },
+            visible: { scale: 1, opacity: 1 }
           }}
-          className="w-4 h-4 rounded-full bg-green-500 z-10"
-        />
-        {index < changelogData.length - 1 && (
+          className="relative"
+        >
+          <div className="w-8 h-8 rounded-full bg-fuchsia-500 z-10 relative" />
+          {index < changelogData.length - 1 && (
+            <motion.div
+              variants={{
+                hidden: { height: 0 },
+                visible: { height: '200px' }
+              }}
+              className="absolute top-8 left-1/2 -translate-x-1/2 w-1 bg-fuchsia-500"
+            />
+          )}
+        </motion.div>
+        
+        <div className="flex-1">
+          <motion.h3
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="text-7xl font-bold text-cyan-400 mb-4"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            {item.period}
+          </motion.h3>
           <motion.div
             variants={{
-              hidden: { height: 0 },
-              visible: { height: '100%', transition: { duration: 0.5 } },
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
             }}
-            className="absolute top-4 left-1/2 transform -translate-x-1/2 w-0.5 bg-green-500"
-            style={{ height: 'calc(100% + 3rem)' }}
-          />
-        )}
-      </div>
-      <div className="w-1/2 pl-4">
-        <motion.p
-          variants={{
-            hidden: { opacity: 0.5, scale: 0.9 },
-            visible: { opacity: 1, scale: 1 },
-          }}
-          className="text-lg text-slate-700 dark:text-slate-300"
-        >
-          {item.description}
-        </motion.p>
+            className="text-3xl font-light text-white"
+          >
+            {item.description}
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   )
@@ -93,9 +96,11 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
 
 const Changelog = () => {
   return (
-    <div className="py-16 px-4 max-w-3xl mx-auto">
-      <h2 className="text-4xl font-bold text-center mb-12 text-purple-600 dark:text-purple-400">My Journey</h2>
-      <div className="relative">
+    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-8xl font-bold text-center mb-24 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+          My Journey
+        </h2>
         {changelogData.map((item, index) => (
           <ChangelogItem key={index} item={item} index={index} />
         ))}
@@ -105,6 +110,3 @@ const Changelog = () => {
 }
 
 export default Changelog
-
-
-

@@ -22,7 +22,15 @@ export default function Page() {
 
   useEffect(() => {
     const loopAnimation = async () => {
-      await controls.start({ y: [0, -10, 0], transition: { duration: 2, repeat: Infinity } })
+      await controls.start({ 
+        y: [0, -20, 0], 
+        scale: [1, 1.05, 1],
+        transition: { 
+          duration: 2, 
+          repeat: Infinity,
+          ease: "easeInOut"
+        } 
+      })
     }
     loopAnimation()
   }, [controls])
@@ -35,7 +43,7 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-300 dark:from-slate-800 dark:to-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-fuchsia-900 via-violet-900 to-cyan-900">
       <Button
         variant="outline"
         size="icon"
@@ -50,28 +58,28 @@ export default function Page() {
       </Button>
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left"
+          exit={{ opacity: 0, y: -50 }}
+          className="flex flex-col md:flex-row items-center md:items-start gap-12 text-center md:text-left"
         >
           <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            className="relative w-48 h-48 md:w-64 md:h-64 overflow-hidden rounded-full border-4 border-purple-500 shadow-lg"
+            className="relative w-64 h-64 md:w-96 md:h-96 overflow-hidden rounded-3xl border-8 border-cyan-400 shadow-2xl shadow-cyan-500/50"
           >
             <Image
               src="/me.png"
               alt="Hélio Sales Jr."
               layout="fill"
               objectFit="cover"
-              className="rounded-full"
+              className="rounded-2xl"
             />
           </motion.div>
-          <div className="flex flex-col items-center md:items-start gap-4">
+          <div className="flex flex-col items-center md:items-start gap-8">
             <motion.h1
-              className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+              className="text-7xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 260, damping: 20 }}
@@ -80,7 +88,7 @@ export default function Page() {
               Hélio Sales Jr.
             </motion.h1>
             <motion.h2
-              className="text-2xl md:text-3xl text-green-600 dark:text-green-400"
+              className="text-4xl md:text-6xl font-bold text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -90,7 +98,7 @@ export default function Page() {
             <motion.div animate={controls}>
               <Button
                 onClick={handleHelloClick}
-                className="mt-4 bg-purple-600 hover:bg-purple-700 text-white text-lg px-8 py-4 rounded-full"
+                className="mt-8 bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg shadow-fuchsia-500/50 transform transition-all hover:scale-105"
               >
                 Hello
               </Button>
@@ -106,7 +114,7 @@ export default function Page() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="w-full"
         >
-          <div className="w-full max-w-6xl mx-auto p-4">
+          <div className="w-full max-w-7xl mx-auto p-4">
             <Portfolio />
           </div>
           <Changelog />
@@ -115,6 +123,7 @@ export default function Page() {
     </div>
   )
 }
+
 
 
 
