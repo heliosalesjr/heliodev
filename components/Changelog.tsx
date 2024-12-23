@@ -1,11 +1,7 @@
-
-
-
-
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { motion, useAnimation, useInView } from 'framer-motion'
+import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
 
 type ChangelogItem = {
   period: string
@@ -25,6 +21,10 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, margin: "-100px" })
   const controls = useAnimation()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"]
+  })
 
   useEffect(() => {
     if (isInView) {
@@ -59,11 +59,8 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
           <div className="w-8 h-8 rounded-full bg-fuchsia-500 z-10 relative" />
           {index < changelogData.length - 1 && (
             <motion.div
-              variants={{
-                hidden: { height: 0 },
-                visible: { height: '200px' }
-              }}
-              className="absolute top-8 left-1/2 -translate-x-1/2 w-1 bg-fuchsia-500"
+              style={{ height: scrollYProgress }}
+              className="absolute top-8 left-1/2 -translate-x-1/2 w-1 bg-fuchsia-500 origin-top"
             />
           )}
         </motion.div>
@@ -110,3 +107,4 @@ const Changelog = () => {
 }
 
 export default Changelog
+
