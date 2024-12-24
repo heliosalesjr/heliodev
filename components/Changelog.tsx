@@ -42,7 +42,7 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
           transition: { duration: 0.6, ease: "easeOut" } 
         },
       }}
-      className="mb-32"
+      className="mb-32 relative"
     >
       <div className="flex items-start gap-8">
         <motion.div
@@ -89,24 +89,33 @@ const Changelog = () => {
   })
 
   return (
-    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950 relative" ref={containerRef}>
-      <motion.div 
-        className="absolute left-[calc(50%-1px)] top-0 w-2 bg-fuchsia-500 origin-top"
-        style={{ height: scrollYProgress }}
-      />
+    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950" ref={containerRef}>
       <div className="max-w-6xl mx-auto relative">
         <h2 className="text-8xl font-bold text-center mb-24 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
           My Journey
         </h2>
-        {changelogData.map((item, index) => (
-          <ChangelogItem key={index} item={item} index={index} />
-        ))}
+        <div className="relative">
+          <motion.div 
+            className="absolute left-[15px] top-0 w-[2px] bg-fuchsia-500 origin-top"
+            style={{ 
+              scaleY: scrollYProgress,
+              height: '100%'
+            }}
+          />
+          {changelogData.map((item, index) => (
+            <ChangelogItem key={index} item={item} index={index} />
+          ))}
+        </div>
       </div>
     </div>
   )
 }
 
 export default Changelog
+
+
+
+
 
 
 
