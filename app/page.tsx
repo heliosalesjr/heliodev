@@ -71,7 +71,7 @@ export default function Page() {
             className="relative w-64 h-64 md:w-96 md:h-96 overflow-hidden rounded-3xl border-8 border-cyan-400 shadow-2xl shadow-cyan-500/50"
           >
             <Image
-              src="/placeholder.svg"
+              src="/me.png"
               alt="Hélio Sales Jr."
               layout="fill"
               objectFit="cover"

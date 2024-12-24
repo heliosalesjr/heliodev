@@ -2,14 +2,13 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 
 const socialLinks = [
-  { icon: FaGithub, href: 'https://github.com/yourusername', color: 'bg-gray-800' },
-  { icon: FaLinkedin, href: 'https://linkedin.com/in/yourusername', color: 'bg-blue-600' },
-  { icon: FaTwitter, href: 'https://twitter.com/yourusername', color: 'bg-sky-500' },
-  { icon: FaEnvelope, href: 'mailto:your@email.com', color: 'bg-red-500' },
+  { icon: FaGithub, href: 'https://github.com/heliosalesjr', color: 'bg-purple-600' },
+  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/helio-sales/', color: 'bg-blue-600' },
+  { icon: FaEnvelope, href: 'mailto:heliodevreact@gmail.com', color: 'bg-green-600' },
 ]
 
 const Footer = () => {
@@ -26,19 +25,19 @@ const Footer = () => {
             <p className="text-2xl text-white mb-8">
               Ready to create something awesome together? Reach out and let's make it happen!
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-6">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={index}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${link.color} p-3 rounded-full text-white text-2xl`}
+                  className={`${link.color} p-4 rounded-full text-white text-3xl flex items-center justify-center`}
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   onHoverStart={() => setHoveredIndex(index)}
                   onHoverEnd={() => setHoveredIndex(null)}
                 >
-                  <link.icon />
+                  <link.icon className="w-8 h-8" />
                 </motion.a>
               ))}
             </div>
@@ -65,8 +64,7 @@ const Footer = () => {
                     {[
                       "I once coded for 24 hours straight... fueled only by coffee and determination!",
                       "My first computer was a hand-me-down that could barely run Minesweeper.",
-                      "I dream in JavaScript... literally. I've solved coding problems in my sleep!",
-                      "I have a secret talent: I can type 120 words per minute... in binary."
+                      "I dream in JavaScript... literally. I've solved coding problems in my sleep!"
                     ][hoveredIndex]}
                   </p>
                 </div>
