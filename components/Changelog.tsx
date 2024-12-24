@@ -21,10 +21,6 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, margin: "-100px" })
   const controls = useAnimation()
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end end"]
-  })
 
   useEffect(() => {
     if (isInView) {
@@ -57,12 +53,6 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
           className="relative"
         >
           <div className="w-8 h-8 rounded-full bg-fuchsia-500 z-10 relative" />
-          {index < changelogData.length - 1 && (
-            <motion.div
-              style={{ height: scrollYProgress }}
-              className="absolute top-8 left-1/2 -translate-x-1/2 w-1 bg-fuchsia-500 origin-top"
-            />
-          )}
         </motion.div>
         
         <div className="flex-1">
@@ -92,9 +82,19 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
 }
 
 const Changelog = () => {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
+
   return (
-    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950">
-      <div className="max-w-6xl mx-auto">
+    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950 relative" ref={containerRef}>
+      <motion.div 
+        className="absolute left-[calc(50%-1px)] top-0 w-2 bg-fuchsia-500 origin-top"
+        style={{ height: scrollYProgress }}
+      />
+      <div className="max-w-6xl mx-auto relative">
         <h2 className="text-8xl font-bold text-center mb-24 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
           My Journey
         </h2>
@@ -107,4 +107,6 @@ const Changelog = () => {
 }
 
 export default Changelog
+
+
 
