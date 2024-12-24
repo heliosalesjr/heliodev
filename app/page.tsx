@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Portfolio from '@/components/Portfolio'
 import Changelog from '@/components/Changelog'
+import Footer from '@/components/Footer'
 import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
@@ -70,7 +71,7 @@ export default function Page() {
             className="relative w-64 h-64 md:w-96 md:h-96 overflow-hidden rounded-3xl border-8 border-cyan-400 shadow-2xl shadow-cyan-500/50"
           >
             <Image
-              src="/me.png"
+              src="/placeholder.svg"
               alt="Hélio Sales Jr."
               layout="fill"
               objectFit="cover"
@@ -120,10 +121,8 @@ export default function Page() {
           <Changelog />
         </motion.div>
       )}
+      <Footer />
     </div>
   )
 }
-
-
-
 
