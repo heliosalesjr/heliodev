@@ -9,6 +9,7 @@ import Footer from '@/components/Footer'
 import { useTheme } from 'next-themes'
 import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
+import { Dock } from '@/components/Dock'
 
 export default function Page() {
   const [showContent, setShowContent] = useState(false)
@@ -45,18 +46,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-fuchsia-900 via-violet-900 to-cyan-900">
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed top-4 right-4 z-50"
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      >
-        {mounted && (theme === 'dark' ? (
-          <Sun className="h-[1.2rem] w-[1.2rem]" />
-        ) : (
-          <Moon className="h-[1.2rem] w-[1.2rem]" />
-        ))}
-      </Button>
+      {/* Removed theme toggle button */}
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -122,6 +112,7 @@ export default function Page() {
         </motion.div>
       )}
       <Footer />
+      <Dock />
     </div>
   )
 }
