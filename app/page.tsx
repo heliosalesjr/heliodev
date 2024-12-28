@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Portfolio from '@/components/Portfolio'
@@ -14,11 +14,32 @@ import { useTheme } from 'next-themes'
 export default function Page() {
   const controls = useAnimation()
   const portfolioRef = useRef<HTMLDivElement>(null)
+  const footerRef = useRef<HTMLDivElement>(null)
   const { theme } = useTheme()
+  const [isDockVisible, setIsDockVisible] = useState(true)
 
   const handleScrollToPortfolio = () => {
     portfolioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsDockVisible(!entry.isIntersecting)
+      },
+      { threshold: 0.1 } // Trigger when 10% of the footer is visible
+    )
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current)
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current)
+      }
+    }
+  }, [])
 
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-mesh-dark' : 'bg-mesh-light'}`}>
@@ -84,9 +105,10 @@ export default function Page() {
         </div>
       </motion.div>
       <Changelog />
-      <Footer />
-      <Dock />
+      <div ref={footerRef}>
+        <Footer />
+      </div>
+      <Dock isVisible={isDockVisible} />
     </div>
   )
 }
-
