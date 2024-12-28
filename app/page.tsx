@@ -1,52 +1,25 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import Portfolio from '@/components/Portfolio'
 import Changelog from '@/components/Changelog'
 import Footer from '@/components/Footer'
-import { useTheme } from 'next-themes'
-import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 import { Dock } from '@/components/Dock'
+import { ChevronDown } from 'lucide-react'
 
 export default function Page() {
-  const [showContent, setShowContent] = useState(false)
   const controls = useAnimation()
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const contentRef = useRef<HTMLDivElement>(null)
+  const portfolioRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    const loopAnimation = async () => {
-      await controls.start({ 
-        y: [0, -20, 0], 
-        scale: [1, 1.05, 1],
-        transition: { 
-          duration: 2, 
-          repeat: Infinity,
-          ease: "easeInOut"
-        } 
-      })
-    }
-    loopAnimation()
-  }, [controls])
-
-  const handleHelloClick = () => {
-    setShowContent(true)
-    setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, 100)
+  const handleScrollToPortfolio = () => {
+    portfolioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-fuchsia-900 via-violet-900 to-cyan-900">
-      {/* Removed theme toggle button */}
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -88,29 +61,27 @@ export default function Page() {
             </motion.h2>
             <motion.div animate={controls}>
               <Button
-                onClick={handleHelloClick}
+                onClick={handleScrollToPortfolio}
                 className="mt-8 bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg shadow-fuchsia-500/50 transform transition-all hover:scale-105"
               >
-                Hello
+                <ChevronDown className="h-8 w-8" />
               </Button>
             </motion.div>
           </div>
         </motion.div>
       </div>
-      {showContent && (
-        <motion.div
-          ref={contentRef}
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full"
-        >
-          <div className="w-full max-w-7xl mx-auto p-4">
-            <Portfolio />
-          </div>
-          <Changelog />
-        </motion.div>
-      )}
+      <motion.div
+        ref={portfolioRef}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="min-h-screen flex items-center justify-center"
+      >
+        <div className="w-full max-w-7xl mx-auto p-4">
+          <Portfolio />
+        </div>
+      </motion.div>
+      <Changelog />
       <Footer />
       <Dock />
     </div>
