@@ -50,10 +50,10 @@ export default function Portfolio() {
   }
 
   return (
-    <div className="flex flex-col bg-gradient-to-br from-violet-900 to-indigo-950 rounded-3xl shadow-2xl overflow-hidden border-4 border-cyan-400">
+    <div className="flex flex-col bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border-4 border-cyan-400 dark:border-fuchsia-400">
       <div className="flex flex-col md:flex-row">
         <motion.nav
-          className="w-full md:w-72 bg-gradient-to-b from-fuchsia-900 to-violet-900 p-8"
+          className="w-full md:w-72 bg-gray-100 dark:bg-gray-900 p-8"
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -69,8 +69,8 @@ export default function Portfolio() {
                   onClick={() => handleSetActiveItem(item.id)}
                   className={`w-full text-left py-4 px-6 rounded-xl transition-all flex items-center text-xl ${
                     activeItem === item.id
-                      ? 'bg-gradient-to-r from-cyan-400 to-fuchsia-500 text-white shadow-lg'
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
+                      ? 'bg-cyan-500 dark:bg-fuchsia-500 text-white shadow-lg'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   <item.icon className="mr-3 text-2xl" />
@@ -81,13 +81,13 @@ export default function Portfolio() {
           </ul>
         </motion.nav>
         <motion.div
-          className="flex-1 p-8 bg-gradient-to-br from-violet-900 to-indigo-950 overflow-y-auto"
+          className="flex-1 p-8 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm overflow-y-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
           <motion.h2
-            className="text-6xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500"
+            className="text-6xl font-bold mb-12 text-gray-800 dark:text-gray-200"
             key={activeItem}
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -104,12 +104,12 @@ export default function Portfolio() {
             transition={{ duration: 0.3 }}
           >
             {content[activeItem].map((item, index) => (
-              <Card key={index} className="bg-white/10 border-cyan-400/30 backdrop-blur-sm">
+              <Card key={index} className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-white">{item.title}</CardTitle>
+                  <CardTitle className="text-2xl text-gray-800 dark:text-gray-200">{item.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-lg text-white/70">{item.description}</CardDescription>
+                  <CardDescription className="text-lg text-gray-600 dark:text-gray-300">{item.description}</CardDescription>
                 </CardContent>
               </Card>
             ))}
@@ -123,7 +123,7 @@ export default function Portfolio() {
             >
               <Button
                 onClick={() => setShowWorkExamples(true)}
-                className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+                className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
               >
                 More
               </Button>
@@ -138,7 +138,7 @@ export default function Portfolio() {
             >
               <Button
                 onClick={() => setShowContactForm(true)}
-                className="bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+                className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
               >
                 Message Me
               </Button>

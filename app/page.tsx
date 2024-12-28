@@ -9,17 +9,19 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { Dock } from '@/components/Dock'
 import { ChevronDown } from 'lucide-react'
+import { useTheme } from 'next-themes'
 
 export default function Page() {
   const controls = useAnimation()
   const portfolioRef = useRef<HTMLDivElement>(null)
+  const { theme } = useTheme()
 
   const handleScrollToPortfolio = () => {
     portfolioRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-fuchsia-900 via-violet-900 to-cyan-900">
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-mesh-dark' : 'bg-mesh-light'}`}>
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -52,7 +54,7 @@ export default function Page() {
               Hélio Sales Jr.
             </motion.h1>
             <motion.h2
-              className="text-4xl md:text-6xl font-bold text-white"
+              className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-gray-200"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -62,7 +64,7 @@ export default function Page() {
             <motion.div animate={controls}>
               <Button
                 onClick={handleScrollToPortfolio}
-                className="mt-8 bg-gradient-to-r from-cyan-400 to-fuchsia-500 hover:from-cyan-500 hover:to-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg shadow-fuchsia-500/50 transform transition-all hover:scale-105"
+                className="mt-8 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg transition-all hover:scale-105"
               >
                 <ChevronDown className="h-8 w-8" />
               </Button>
