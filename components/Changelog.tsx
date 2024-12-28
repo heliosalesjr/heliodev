@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion, useAnimation, useInView, useScroll } from 'framer-motion'
+import { useTheme } from 'next-themes'
 
 type ChangelogItem = {
   period: string
@@ -21,6 +22,7 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, margin: "-100px" })
   const controls = useAnimation()
+  const { theme } = useTheme()
 
   useEffect(() => {
     if (isInView) {
@@ -52,7 +54,7 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
           }}
           className="relative"
         >
-          <div className="w-8 h-8 rounded-full bg-fuchsia-500 z-10 relative" />
+          <div className={`w-8 h-8 rounded-full ${theme === 'dark' ? 'bg-fuchsia-500' : 'bg-cyan-500'} z-10 relative`} />
         </motion.div>
         
         <div className="flex-1">
@@ -61,7 +63,7 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 }
             }}
-            className="text-7xl font-bold text-cyan-400 mb-4"
+            className={`text-7xl font-bold mb-4 ${theme === 'dark' ? 'text-cyan-400' : 'text-fuchsia-500'}`}
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             {item.period}
@@ -71,7 +73,7 @@ const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) 
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 }
             }}
-            className="text-3xl font-light text-white"
+            className={`text-3xl font-light ${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}
           >
             {item.description}
           </motion.div>
@@ -87,16 +89,17 @@ const Changelog = () => {
     target: containerRef,
     offset: ["start start", "end end"]
   })
+  const { theme } = useTheme()
 
   return (
-    <div className="py-32 px-4 bg-gradient-to-b from-violet-900 to-indigo-950" ref={containerRef}>
+    <div className={`py-32 px-4 ${theme === 'dark' ? 'bg-gradient-to-b from-violet-900 to-indigo-950' : 'bg-gradient-to-b from-gray-100 to-white'}`} ref={containerRef}>
       <div className="max-w-6xl mx-auto relative">
-        <h2 className="text-8xl font-bold text-center mb-24 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+        <h2 className={`text-8xl font-bold text-center mb-24 ${theme === 'dark' ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500' : 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500'}`} style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
           My Journey
         </h2>
         <div className="relative">
           <motion.div 
-            className="absolute left-[15px] top-0 w-[2px] bg-fuchsia-500 origin-top"
+            className={`absolute left-[15px] top-0 w-[2px] origin-top ${theme === 'dark' ? 'bg-fuchsia-500' : 'bg-cyan-500'}`}
             style={{ 
               scaleY: scrollYProgress,
               height: '100%'
@@ -112,10 +115,4 @@ const Changelog = () => {
 }
 
 export default Changelog
-
-
-
-
-
-
 
