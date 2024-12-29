@@ -1,79 +1,53 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
-import { Button } from '@/components/ui/button'
+import { useTheme } from 'next-themes'
 
 const socialLinks = [
-  { icon: FaGithub, href: 'https://github.com/heliosalesjr', color: 'bg-purple-600' },
-  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/helio-sales/', color: 'bg-blue-600' },
-  { icon: FaEnvelope, href: 'mailto:heliodevreact@gmail.com', color: 'bg-green-600' },
+  { icon: FaGithub, href: 'https://github.com/heliosalesjr', color: 'hover:text-purple-600' },
+  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/helio-sales/', color: 'hover:text-blue-600' },
+  { icon: FaEnvelope, href: 'mailto:heliodevreact@gmail.com', color: 'hover:text-green-600' },
 ]
 
 const Footer = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const { theme } = useTheme()
 
   return (
-    <footer className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 py-16 px-4">
+    <footer className={`py-20 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}`}>
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-6xl font-bold mb-6 text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-              Let's Connect!
-            </h2>
-            <p className="text-2xl text-white mb-8">
-              Ready to create something awesome together? Reach out and let's make it happen!
-            </p>
-            <div className="flex space-x-6">
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${link.color} p-4 rounded-full text-white text-3xl flex items-center justify-center`}
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                  onHoverStart={() => setHoveredIndex(index)}
-                  onHoverEnd={() => setHoveredIndex(null)}
-                >
-                  <link.icon className="w-8 h-8" />
-                </motion.a>
-              ))}
-            </div>
+        <div className="flex flex-col items-center text-center">
+          <h2 className="text-7xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+            Let's Connect
+          </h2>
+          <p className={`text-3xl mb-12 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+            Ready to create something awesome together?
+          </p>
+          <div className="flex space-x-8 mb-12">
+            {socialLinks.map((link, index) => (
+              <motion.a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-4xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'} ${link.color} transition-colors duration-300`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <link.icon />
+              </motion.a>
+            ))}
           </div>
-          <div>
-            <motion.div
-              className="bg-white p-8 rounded-3xl shadow-2xl"
-              initial={{ rotateY: 0 }}
-              animate={{ rotateY: hoveredIndex !== null ? 180 : 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {hoveredIndex === null ? (
-                <div className="text-center">
-                  <h3 className="text-4xl font-bold mb-4 text-purple-600">Want to know more?</h3>
-                  <p className="text-xl mb-6 text-gray-600">Hover over a social icon to reveal a fun fact!</p>
-                  <Button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl px-8 py-4 rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
-                    Say Hello!
-                  </Button>
-                </div>
-              ) : (
-                <div className="text-center transform rotate-y-180">
-                  <h3 className="text-4xl font-bold mb-4 text-purple-600">Did you know?</h3>
-                  <p className="text-xl mb-6 text-gray-600">
-                    {[
-                      "I once coded for 24 hours straight... fueled only by coffee and determination!",
-                      "My first computer was a hand-me-down that could barely run Minesweeper.",
-                      "I dream in JavaScript... literally. I've solved coding problems in my sleep!"
-                    ][hoveredIndex]}
-                  </p>
-                </div>
-              )}
-            </motion.div>
-          </div>
+          <motion.button
+            className={`text-2xl px-8 py-3 rounded-full ${theme === 'dark' ? 'bg-fuchsia-500 hover:bg-fuchsia-600' : 'bg-cyan-500 hover:bg-cyan-600'} text-white transition-colors duration-300`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Say Hello!
+          </motion.button>
         </div>
         <div className="mt-16 text-center">
-          <p className="text-xl text-white">
+          <p className={`text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
             © {new Date().getFullYear()} Hélio Sales Jr. | Crafted with ❤️ and a lot of ☕
           </p>
         </div>
