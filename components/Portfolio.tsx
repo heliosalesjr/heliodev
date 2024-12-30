@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaUser, FaBriefcase, FaGraduationCap, FaEnvelope } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import WorkExamples from './WorkExamples'
 import ContactForm from './ContactForm'
+import Image from 'next/image'
 
 const menuItems = [
   { id: 'about', title: 'About Me', icon: FaUser },
@@ -34,10 +34,46 @@ const content = {
   ],
 }
 
+const workExamples = [
+  { title: "E-commerce Platform", description: "A fully responsive online store with advanced filtering and search capabilities.", image: "/placeholder.jpg" },
+  { title: "Social Media Dashboard", description: "Real-time analytics dashboard for social media performance tracking.", image: "/placeholder.jpg" },
+  { title: "Mobile Banking App", description: "Secure and user-friendly mobile banking application with biometric authentication.", image: "/placeholder.jpg" },
+  { title: "AI-powered Chatbot", description: "Intelligent chatbot for customer support, integrating natural language processing.", image: "/placeholder.jpg" },
+]
+
+const MorphingDialog = ({ isOpen, setIsOpen, title, description, image }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setIsOpen(false)}
+        className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+      >
+        <motion.div
+          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden"
+          layoutId={`card-${title}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <motion.div className="relative h-48 w-full">
+            <Image src={image} alt={title} layout="fill" objectFit="cover" />
+          </motion.div>
+          <motion.div className="p-4">
+            <motion.h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">{title}</motion.h3>
+            <motion.p className="text-gray-600 dark:text-gray-400">{description}</motion.p>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+)
+
 export default function Portfolio() {
   const [activeItem, setActiveItem] = useState('about')
   const [showWorkExamples, setShowWorkExamples] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
+  const [openDialog, setOpenDialog] = useState(null)
 
   const handleSetActiveItem = (item: string) => {
     setActiveItem(item)
@@ -122,11 +158,38 @@ export default function Portfolio() {
               className="mt-12"
             >
               <Button
-                onClick={() => setShowWorkExamples(true)}
+                onClick={() => setShowWorkExamples(!showWorkExamples)}
                 className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
               >
-                More
+                {showWorkExamples ? 'Less' : 'More'}
               </Button>
+            </motion.div>
+          )}
+          {activeItem === 'work' && showWorkExamples && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="grid gap-8 md:grid-cols-2 mt-12"
+            >
+              {workExamples.map((example, index) => (
+                <motion.div
+                  key={index}
+                  layoutId={`card-${example.title}`}
+                  onClick={() => setOpenDialog(example.title)}
+                  className="cursor-pointer"
+                >
+                  <Card className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader>
+                      <CardTitle className="text-2xl text-gray-800 dark:text-gray-200">{example.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Image src={example.image} alt={example.title} width={300} height={200} className="rounded-lg mb-4" />
+                      <CardDescription className="text-lg text-gray-600 dark:text-gray-300">{example.description}</CardDescription>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </motion.div>
           )}
           {activeItem === 'contact' && (
@@ -147,13 +210,18 @@ export default function Portfolio() {
         </motion.div>
       </div>
       <AnimatePresence>
-        {showWorkExamples && (
-          <WorkExamples onClose={() => setShowWorkExamples(false)} />
-        )}
         {showContactForm && (
           <ContactForm onClose={() => setShowContactForm(false)} />
         )}
       </AnimatePresence>
+      {workExamples.map((example) => (
+        <MorphingDialog
+          key={example.title}
+          isOpen={openDialog === example.title}
+          setIsOpen={() => setOpenDialog(null)}
+          {...example}
+        />
+      ))}
     </div>
   )
 }
