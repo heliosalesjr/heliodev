@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaUser, FaBriefcase, FaGraduationCap, FaEnvelope } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
@@ -78,47 +78,75 @@ const WorkCard = ({ example, onClick }) => (
   </Card>
 )
 
-const MorphingDialog = ({ isOpen, setIsOpen, example }) => (
-  <AnimatePresence>
-    {isOpen && (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => setIsOpen(false)}
-        className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-      >
+const MorphingDialog = ({ isOpen, setIsOpen, example }) => {
+  const overlayRef = useRef(null)
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden max-w-md w-full"
-          layoutId={`card-${example.title}`}
-          onClick={(e) => e.stopPropagation()}
+          ref={overlayRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={(e) => {
+            if (e.target === overlayRef.current) setIsOpen(false)
+          }}
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
         >
-          <div className="relative h-64 w-full">
-            <Image src={example.image} alt={example.title} layout="fill" objectFit="cover" />
-          </div>
-          <div className="p-6">
-            <h3 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-200">{example.title}</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-gray-600 dark:text-gray-400"
-            >
-              {example.extraInfo}
-            </motion.p>
-          </div>
+          <motion.div
+            className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden w-full max-w-2xl"
+            layoutId={`card-${example.title}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1,
+              transition: { 
+                duration: 0.5,
+                ease: [0.43, 0.13, 0.23, 0.96]
+              }
+            }}
+            exit={{ 
+              opacity: 0, 
+              scale: 0.8, 
+              transition: { 
+                duration: 0.5,
+                ease: [0.43, 0.13, 0.23, 0.96]
+              }
+            }}
+          >
+            <div className="relative h-64 w-full">
+              <Image src={example.image} alt={example.title} layout="fill" objectFit="cover" />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-200">{example.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="text-gray-600 dark:text-gray-400"
+              >
+                {example.extraInfo}
+              </motion.p>
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-)
+      )}
+    </AnimatePresence>
+  )
+}
 
 export default function Portfolio() {
   const [activeItem, setActiveItem] = useState('about')
   const [showWorkExamples, setShowWorkExamples] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
   const [openDialog, setOpenDialog] = useState(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleSetActiveItem = (item: string) => {
     setActiveItem(item)
@@ -130,7 +158,12 @@ export default function Portfolio() {
     }
   }
 
+  if (!mounted) {
+    return null
+  }
+
   return (
+    <AnimatePresence mode="wait">
     <div className="flex flex-col bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border-4 border-cyan-400 dark:border-fuchsia-400">
       <div className="flex flex-col md:flex-row">
         <motion.nav
@@ -199,31 +232,58 @@ export default function Portfolio() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              transition={{ duration: 0.5 }}
               className="mt-12"
             >
-              <Button
-                onClick={() => setShowWorkExamples(!showWorkExamples)}
-                className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
-              >
-                {showWorkExamples ? 'Less' : 'More'}
-              </Button>
-            </motion.div>
-          )}
-          {activeItem === 'work' && showWorkExamples && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="grid gap-8 md:grid-cols-2 mt-12"
-            >
-              {workExamples.map((example, index) => (
-                <WorkCard
-                  key={index}
-                  example={example}
-                  onClick={() => setOpenDialog(example.title)}
-                />
-              ))}
+              {!showWorkExamples ? (
+                <Button
+                  onClick={() => setShowWorkExamples(true)}
+                  className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+                >
+                  More
+                </Button>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 1.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+                >
+                  <motion.div
+                    className="grid gap-8 md:grid-cols-2"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1.5, delay: 0.2, ease: [0.04, 0.62, 0.23, 0.98] }}
+                  >
+                    {workExamples.map((example, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1, delay: index * 0.2 }}
+                      >
+                        <WorkCard
+                          example={example}
+                          onClick={() => setOpenDialog(example.title)}
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 1 }}
+                    className="mt-12 flex justify-center"
+                  >
+                    <Button
+                      onClick={() => setShowWorkExamples(false)}
+                      className="bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-6 rounded-xl shadow-lg"
+                    >
+                      Less
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              )}
             </motion.div>
           )}
           {activeItem === 'contact' && (
@@ -257,6 +317,7 @@ export default function Portfolio() {
         />
       ))}
     </div>
+    </AnimatePresence>
   )
 }
 
