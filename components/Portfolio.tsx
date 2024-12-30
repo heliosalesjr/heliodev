@@ -35,13 +35,50 @@ const content = {
 }
 
 const workExamples = [
-  { title: "E-commerce Platform", description: "A fully responsive online store with advanced filtering and search capabilities.", image: "/placeholder.jpg" },
-  { title: "Social Media Dashboard", description: "Real-time analytics dashboard for social media performance tracking.", image: "/placeholder.jpg" },
-  { title: "Mobile Banking App", description: "Secure and user-friendly mobile banking application with biometric authentication.", image: "/placeholder.jpg" },
-  { title: "AI-powered Chatbot", description: "Intelligent chatbot for customer support, integrating natural language processing.", image: "/placeholder.jpg" },
+  { 
+    title: "E-commerce Platform", 
+    description: "A fully responsive online store with advanced filtering and search capabilities.", 
+    image: "/placeholder.jpg",
+    extraInfo: "This project involved integrating multiple payment gateways, implementing a robust inventory management system, and optimizing for mobile devices."
+  },
+  { 
+    title: "Social Media Dashboard", 
+    description: "Real-time analytics dashboard for social media performance tracking.", 
+    image: "/placeholder.jpg",
+    extraInfo: "The dashboard uses WebSocket connections to provide live updates and includes customizable widgets for different social media platforms."
+  },
+  { 
+    title: "Mobile Banking App", 
+    description: "Secure and user-friendly mobile banking application with biometric authentication.", 
+    image: "/placeholder.jpg",
+    extraInfo: "This app features end-to-end encryption, supports multiple currencies, and includes a budgeting tool to help users manage their finances."
+  },
+  { 
+    title: "AI-powered Chatbot", 
+    description: "Intelligent chatbot for customer support, integrating natural language processing.", 
+    image: "/placeholder.jpg",
+    extraInfo: "The chatbot uses machine learning algorithms to improve its responses over time and can handle complex, multi-step customer inquiries."
+  },
 ]
 
-const MorphingDialog = ({ isOpen, setIsOpen, title, description, image }) => (
+const WorkCard = ({ example, onClick }) => (
+  <Card 
+    className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden"
+    onClick={onClick}
+  >
+    <div className="relative h-48 w-full">
+      <Image src={example.image} alt={example.title} layout="fill" objectFit="cover" />
+    </div>
+    <CardHeader>
+      <CardTitle className="text-2xl text-gray-800 dark:text-gray-200">{example.title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription className="text-lg text-gray-600 dark:text-gray-300">{example.description}</CardDescription>
+    </CardContent>
+  </Card>
+)
+
+const MorphingDialog = ({ isOpen, setIsOpen, example }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
@@ -52,17 +89,25 @@ const MorphingDialog = ({ isOpen, setIsOpen, title, description, image }) => (
         className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
       >
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden"
-          layoutId={`card-${title}`}
+          className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden max-w-md w-full"
+          layoutId={`card-${example.title}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <motion.div className="relative h-48 w-full">
-            <Image src={image} alt={title} layout="fill" objectFit="cover" />
-          </motion.div>
-          <motion.div className="p-4">
-            <motion.h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-200">{title}</motion.h3>
-            <motion.p className="text-gray-600 dark:text-gray-400">{description}</motion.p>
-          </motion.div>
+          <div className="relative h-64 w-full">
+            <Image src={example.image} alt={example.title} layout="fill" objectFit="cover" />
+          </div>
+          <div className="p-6">
+            <h3 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-200">{example.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-600 dark:text-gray-400"
+            >
+              {example.extraInfo}
+            </motion.p>
+          </div>
         </motion.div>
       </motion.div>
     )}
@@ -173,22 +218,11 @@ export default function Portfolio() {
               className="grid gap-8 md:grid-cols-2 mt-12"
             >
               {workExamples.map((example, index) => (
-                <motion.div
+                <WorkCard
                   key={index}
-                  layoutId={`card-${example.title}`}
+                  example={example}
                   onClick={() => setOpenDialog(example.title)}
-                  className="cursor-pointer"
-                >
-                  <Card className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader>
-                      <CardTitle className="text-2xl text-gray-800 dark:text-gray-200">{example.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Image src={example.image} alt={example.title} width={300} height={200} className="rounded-lg mb-4" />
-                      <CardDescription className="text-lg text-gray-600 dark:text-gray-300">{example.description}</CardDescription>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                />
               ))}
             </motion.div>
           )}
@@ -219,7 +253,7 @@ export default function Portfolio() {
           key={example.title}
           isOpen={openDialog === example.title}
           setIsOpen={() => setOpenDialog(null)}
-          {...example}
+          example={example}
         />
       ))}
     </div>
