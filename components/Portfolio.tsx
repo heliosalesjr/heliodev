@@ -250,14 +250,13 @@ export default function Portfolio() {
             <ContactForm onClose={() => setShowContactForm(false)} />
           )}
         </AnimatePresence>
-        {workExamples.map((example) => (
+        {openDialog && (
           <MorphingDialog
-            key={example.title}
-            isOpen={openDialog === example.title}
-            setIsOpen={() => setOpenDialog(null)}
-            example={example}
+            isOpen={!!openDialog}
+            setIsOpen={(isOpen) => setOpenDialog(isOpen ? openDialog : null)}
+            example={workExamples.find(ex => ex.title === openDialog)}
           />
-        ))}
+        )}
       </div>
     </AnimatePresence>
   )
