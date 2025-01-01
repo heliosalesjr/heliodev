@@ -42,7 +42,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-mesh-dark' : 'bg-mesh-light'}`}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-mesh-dark' : 'bg-mesh-light'} animated-gradient`}>
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -84,10 +84,10 @@ export default function Page() {
             </motion.h2>
             <motion.div animate={controls}>
               <Button
-                  onClick={handleScrollToPortfolio}
-                  className="mt-8 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105"
-                >
-                  About Me
+                onClick={handleScrollToPortfolio}
+                className="mt-8 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg transition-all hover:scale-105"
+              >
+                <ChevronDown className="h-8 w-8" />
               </Button>
             </motion.div>
           </div>
@@ -112,3 +112,4 @@ export default function Page() {
     </div>
   )
 }
+
