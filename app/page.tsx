@@ -84,10 +84,10 @@ export default function Page() {
             </motion.h2>
             <motion.div animate={controls}>
               <Button
-                onClick={handleScrollToPortfolio}
-                className="mt-8 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-2xl px-12 py-8 rounded-2xl shadow-lg transition-all hover:scale-105"
-              >
-                <ChevronDown className="h-8 w-8" />
+                  onClick={handleScrollToPortfolio}
+                  className="mt-8 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-xl px-8 py-4 rounded-xl shadow-lg transition-all hover:scale-105"
+                >
+                  About Me
               </Button>
             </motion.div>
           </div>

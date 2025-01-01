@@ -215,7 +215,7 @@ export default function Portfolio() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1, delay: 1 }}
-                      className="mt-12 flex justify-center"
+                      className="mt-12 flex justify-center md:justify-start"
                     >
                       <Button
                         onClick={() => setShowWorkExamples(false)}
