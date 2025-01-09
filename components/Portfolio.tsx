@@ -18,8 +18,8 @@ const menuItems = [
 
 const content = {
   about: [
-    { title: "Who I Am", description: "I'm a passionate Frontend Engineer with a love for creating beautiful and functional web experiences." },
-    { title: "My Skills", description: "Proficient in React, Next.js, TypeScript, and modern CSS frameworks." },
+    { title: "Who I Am", description: "I am a React.js specialist with over 15 years of experience in tech, focusing on building scalable applications with React, Next.js, Node.js, and TailwindCSS. I’m passionate about creating seamless frontend experiences and enjoy working on design systems, optimizing workflows, and developing full-stack solutions with clean and effective code." },
+    { title: "My Skills", description: "In addition to the frontend development stacks I've mentioned, I have experience with SQL for database management, AWS for cloud services, and implementing agile practices like Scrum to ensure smooth project delivery. Over the years, I’ve also gained familiarity with authentication systems, CI/CD pipelines, and other backend technologies." },
   ],
   work: [
     { title: "Senior Frontend Developer", description: "Led the development of a large-scale web application using React and GraphQL." },
