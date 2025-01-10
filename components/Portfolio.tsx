@@ -31,7 +31,7 @@ const content = {
   ],
   contact: [
     { title: "Email", description: "hello@heliosalesjr.com" },
-    { title: "LinkedIn", description: "linkedin.com/in/heliosalesjr" },
+    { title: "LinkedIn", description: "https://www.linkedin.com/in/helio-sales/" },
   ],
 }
 
