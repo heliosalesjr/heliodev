@@ -10,12 +10,13 @@ type ChangelogItem = {
 }
 
 const changelogData: ChangelogItem[] = [
-  { period: "Currently", description: "Working as a full stack developer at an educational company" },
-  { period: "2020 - 2024", description: "Led frontend development for a major e-commerce platform" },
-  { period: "2018 - 2020", description: "Freelance web developer, specializing in React applications" },
-  { period: "2015 - 2018", description: "Junior developer at a tech startup, focusing on mobile apps" },
-  { period: "2012 - 2015", description: "Completed Computer Science degree, internships in web development" },
-  { period: "2010", description: "Started learning programming, built first website" },
+  { period: "2009", description: "Completed a web design course and began my professional journey as a freelance developer, creating interactive websites using Flash." },
+  { period: "2010 - 2013", description: "Secured my first professional role, developing websites for the Rio de Janeiro city government and contributing to the creation of \"Pé de Vento,\" Brazil's first digital literacy course." },
+  { period: "2017", description: "Worked as a freelancer for the Colombian NGO \"Fundación Capital,\" collaborating with American developers to create the EduChef app." },
+  { period: "2013 - 2019", description: "Took on my biggest challenge at the startup Edufuturo, where I built an educational platform for children from the ground up. This included developing hundreds of JavaScript games and creating comprehensive dashboards for teachers and parents." },
+  { period: "2019 - 2020", description: "Worked with the United Nations on the SocialProtection.org platform, contributing to a global initiative supporting social protection systems." },
+  { period: "2020 - Currently", description: "2020 - Present – Currently leading the team responsible for the digital layer of content at BEĨ Educação, an edtech from São Paulo, with a strong focus on frontend development." },
+  
 ]
 
 const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) => {
