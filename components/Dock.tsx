@@ -1,9 +1,9 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, MotionValue, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { Moon, Sun, Github, Linkedin } from 'lucide-react'
+import { Moon, Sun, Github, Linkedin, LucideIcon } from 'lucide-react'
 
 function useDockHoverAnimation(mouseX: MotionValue) {
   const ref = useRef<HTMLDivElement>(null)
