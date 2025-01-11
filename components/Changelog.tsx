@@ -19,7 +19,7 @@ const changelogData: ChangelogItem[] = [
   
 ]
 
-const ChangelogItem = ({ item, index }: { item: ChangelogItem; index: number }) => {
+const ChangelogItem = ({ item }: { item: ChangelogItem; index: number }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: false, margin: "-100px" })
   const controls = useAnimation()
