@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center text-center">
           <h2 className="text-7xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-            Let's Connect
+            Let&apos;s Connect
           </h2>
           <p className={`text-3xl mb-12 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
             Ready to create something awesome together?

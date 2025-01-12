@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaUser, FaBriefcase, FaGraduationCap, FaEnvelope } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
@@ -62,7 +62,14 @@ const workExamples = [
   },
 ]
 
-const WorkCard = ({ example, onClick }) => (
+interface WorkExample {
+  title: string;
+  description: string;
+  image: string;
+  extraInfo: string;
+}
+
+const WorkCard = ({ example, onClick }: { example: WorkExample; onClick: () => void }) => (
   <Card 
     className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer overflow-hidden"
     onClick={onClick}
@@ -83,7 +90,7 @@ export default function Portfolio() {
   const [activeItem, setActiveItem] = useState('about')
   const [showWorkExamples, setShowWorkExamples] = useState(false)
   const [showContactForm, setShowContactForm] = useState(false)
-  const [openDialog, setOpenDialog] = useState(null)
+  const [openDialog, setOpenDialog] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -159,7 +166,7 @@ export default function Portfolio() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              {content[activeItem].map((item, index) => (
+              {content[activeItem].map((item: { title: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; description: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined }, index: Key | null | undefined) => (
                 <Card key={index} className="bg-white/80 dark:bg-gray-700/80 border-cyan-200 dark:border-fuchsia-200 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle className="text-2xl text-gray-800 dark:text-gray-200">{item.title}</CardTitle>
@@ -254,7 +261,7 @@ export default function Portfolio() {
           <MorphingDialog
             isOpen={!!openDialog}
             setIsOpen={(isOpen) => setOpenDialog(isOpen ? openDialog : null)}
-            example={workExamples.find(ex => ex.title === openDialog)}
+            example={workExamples.find(ex => ex.title === openDialog) || { image: '', title: '', description: '', extraInfo: '' }}
           />
         )}
       </div>

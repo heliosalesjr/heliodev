@@ -6,7 +6,18 @@ import Image from 'next/image'
 import { X } from 'lucide-react'
 import { createPortal } from 'react-dom'
 
-const MorphingDialog = ({ isOpen, setIsOpen, example }) => {
+interface MorphingDialogProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  example: {
+    image: string;
+    title: string;
+    description: string;
+    extraInfo: string;
+  };
+}
+
+const MorphingDialog = ({ isOpen, setIsOpen, example }: MorphingDialogProps) => {
   const dialogRef = useRef(null)
 
   useEffect(() => {
