@@ -1,5 +1,3 @@
-@import '../styles/gradientAnimation.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -60,3 +58,26 @@
   }
 }
 
+.scroll-button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #06b6d4; /* Tailwind bg-cyan-500 */
+  color: white;
+  padding: 1rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.scroll-button:hover {
+  background-color: #0891b2; /* Tailwind hover:bg-cyan-600 */
+}
+
+.scroll-button.top {
+  top: -2rem; /* Ajuste conforme necessário */
+}
+
+.scroll-button.bottom {
+  bottom: -2rem; /* Ajuste conforme necessário */
+}
