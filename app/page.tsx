@@ -103,7 +103,7 @@ export default function Page() {
             {/* Seta para cima */}
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600"
+              className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-slate-300 text-white p-2 rounded-full hover:bg-slate-500"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -122,7 +122,7 @@ export default function Page() {
               onClick={() =>
                 changelogRef?.current?.scrollIntoView({ behavior: "smooth" })
               }
-              className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600"
+              className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-300 text-white p-2 rounded-full hover:bg-slate-500"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
