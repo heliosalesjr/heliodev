@@ -10,7 +10,6 @@ import Image from 'next/image'
 import { Dock } from '@/components/Dock'
 import { ChevronDown } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { ArrowUp, ArrowDown } from "lucide-react";
 
 export default function Page() {
   const controls = useAnimation()
@@ -98,12 +97,11 @@ export default function Page() {
           </motion.div>
         </div>
         <div ref={portfolioRef} className="min-h-screen flex items-center justify-center relative">
-          {/* Conteúdo principal do Portfolio */}
           <div className="w-full max-w-7xl mx-auto p-8 relative">
             {/* Seta para cima */}
             <motion.button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-slate-300 text-white p-2 rounded-full hover:bg-slate-500"
+              className={`absolute -top-8 left-1/2 transform -translate-x-1/2 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-2xl px-4 py-2 rounded-full shadow-lg transition-all hover:scale-105`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -111,7 +109,7 @@ export default function Page() {
               whileTap={{ scale: 0.9 }}
               aria-label="Scroll to top"
             >
-              <ArrowUp size={20} />
+              <ChevronDown className="h-8 w-8 rotate-180" />
             </motion.button>
 
             {/* Portfolio Component */}
@@ -122,7 +120,7 @@ export default function Page() {
               onClick={() =>
                 changelogRef?.current?.scrollIntoView({ behavior: "smooth" })
               }
-              className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-slate-300 text-white p-2 rounded-full hover:bg-slate-500"
+              className={`absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-cyan-500 hover:bg-cyan-600 dark:bg-fuchsia-500 dark:hover:bg-fuchsia-600 text-white text-2xl px-4 py-2 rounded-full shadow-lg transition-all hover:scale-105`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
@@ -130,7 +128,7 @@ export default function Page() {
               whileTap={{ scale: 0.9 }}
               aria-label="Scroll to next section"
             >
-              <ArrowDown size={20} />
+              <ChevronDown className="h-8 w-8" />
             </motion.button>
           </div>
         </div>
