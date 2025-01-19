@@ -48,7 +48,7 @@ const Footer = () => {
         </div>
         <div className="mt-16 text-center">
           <p className={`text-xl ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            © {new Date().getFullYear()} Hélio Sales Jr. | Crafted with ❤️ (and some ☕)
+            © {new Date().getFullYear()} Hélio Sales Jr. | Crafted with ❤️ and ☕
           </p>
         </div>
       </div>
