@@ -3,7 +3,7 @@
 import { useState, useEffect, RefObject } from 'react'
 import dynamic from 'next/dynamic'
 
-const Dock = dynamic(() => import('@/components/Dock'), { 
+const Dock = dynamic(() => import('@/components/Dock').then((mod) => mod.default), { 
   ssr: false,
   loading: () => <div>Carregando Dock...</div>
 })

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
-const Dock = dynamic(() => import('@/components/Dock'), { ssr: false })
+const Dock = dynamic(() => import('@/components/Dock').then((mod) => mod.default), { ssr: false })
 
 export default function ClientSideContent() {
   const [isDockVisible, setIsDockVisible] = useState(false)
