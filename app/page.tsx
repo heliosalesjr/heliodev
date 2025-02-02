@@ -43,7 +43,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'} transition-colors duration-300`}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-slate-50'} transition-colors duration-300`}>
       <div className="relative z-10">
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
           <motion.div
