@@ -89,3 +89,4 @@ function DockIcon({
   )
 }
 
+export default Dock

@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 
-const Dock = dynamic(() => import('@/components/Dock').then((mod) => mod.default), { ssr: false })
+const Dock = dynamic(() => import('@/components/Dock'), { ssr: false })
+
 
 export default function ClientSideContent() {
   const [isDockVisible, setIsDockVisible] = useState(false)
@@ -23,6 +24,6 @@ export default function ClientSideContent() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  return isDockVisible ? <Dock /> : null
+  return isDockVisible ? <Dock isVisible={isDockVisible} /> : null
 }
 

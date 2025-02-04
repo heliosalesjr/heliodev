@@ -7,7 +7,11 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 
-export default function ContactForm({ onClose }) {
+interface ContactFormProps {
+  onClose: () => void;
+}
+
+export default function ContactForm({ onClose }: ContactFormProps) {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' })
 
   const handleSubmit = (e: React.FormEvent) => {
