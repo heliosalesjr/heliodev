@@ -57,18 +57,7 @@ const workExamples = [
     image: "/placeholder.jpg",
     extraInfo: "The dashboard uses WebSocket connections to provide live updates and includes customizable widgets for different social media platforms."
   },
-  { 
-    title: "Mobile Banking App", 
-    description: "Secure and user-friendly mobile banking application with biometric authentication.", 
-    image: "/placeholder.jpg",
-    extraInfo: "This app features end-to-end encryption, supports multiple currencies, and includes a budgeting tool to help users manage their finances."
-  },
-  { 
-    title: "AI-powered Chatbot", 
-    description: "Intelligent chatbot for customer support, integrating natural language processing.", 
-    image: "/placeholder.jpg",
-    extraInfo: "The chatbot uses machine learning algorithms to improve its responses over time and can handle complex, multi-step customer inquiries."
-  },
+  
 ]
 
 interface WorkExample {

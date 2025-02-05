@@ -94,7 +94,7 @@ const Changelog = () => {
 
   return (
     <div className={`py-32 px-4 ${theme === 'dark' ? 'bg-gradient-to-b from-violet-900 to-indigo-950' : 'bg-gradient-to-b from-gray-100 to-white'}`} ref={containerRef}>
-      <div className="max-w-6xl mx-auto relative">
+      <div className="max-w-3xl mx-auto relative">
         <h2 className={`text-8xl font-bold text-center mb-24 ${theme === 'dark' ? 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500' : 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500'}`} style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
           My Journey
         </h2>
